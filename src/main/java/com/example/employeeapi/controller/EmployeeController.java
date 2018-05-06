@@ -14,11 +14,12 @@ import java.util.List;
 
 @Controller
 @EnableAutoConfiguration
+@RequestMapping("/employees")
 public class EmployeeController {
     @Autowired
     private EmployeeRepository employeeRepository;
 
-    @RequestMapping("/employees")
+    @GetMapping
     String getEmployees(Model model) {
         List<Employee> employees = employeeRepository.getAllEmployees();
         model.addAttribute("message", "hello world");
@@ -27,7 +28,7 @@ public class EmployeeController {
     }
 
 
-    @GetMapping("/employees/{id}")
+    @GetMapping("/{id}")
     ResponseEntity getEmployee(@PathVariable("id") int id) {
         return new ResponseEntity<>(employeeRepository.getEmployee(id), HttpStatus.OK);
     }
